@@ -9,6 +9,8 @@ const App: React.FC = () => {
       <AppRouter />
     </BrowserRouter>
   );
-};
+  
+
+ };
 
 export default App;
