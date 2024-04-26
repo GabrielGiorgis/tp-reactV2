@@ -25,6 +25,7 @@ const InstrumentoComponent: React.FC<InstrumentoProps> = ({ instrumento }) => {
             <p style={{ color: "#F2620F" }}>Costo de Envío Interior de Argentina: ${instrumento.costoEnvio}</p>
           )}
           <p>{instrumento.cantidadVendida} vendidos</p>
+          <button onClick={() => window.location.href = `/instrumento/${instrumento.id}`}>Ver mas</button>
         </Col>
         <hr />
       </Row>
