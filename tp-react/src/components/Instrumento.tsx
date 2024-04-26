@@ -13,13 +13,13 @@ const InstrumentoComponent: React.FC<InstrumentoProps> = ({ instrumento }) => {
         <Col>
           <img
             src={"../../img/" + instrumento.imagen}
-            alt={instrumento.nombre}
+            alt={instrumento.instrumento}
           />
         </Col>
         <Col xs={10}>
-          <h6>{instrumento.nombre}</h6>
+          <h6>{instrumento.instrumento}</h6>
           <h3>${instrumento.precio}</h3>
-          {instrumento.costoEnvio === "G" ? (
+          {instrumento.costoEnvio === "0.00" || instrumento.costoEnvio === "G" ? (
             <p style={{ color: "#3FBF48" }}><img src="../../img/camion.png" alt="Camión" />Envío gratis a todo el país</p>
           ) : (
             <p style={{ color: "#F2620F" }}>Costo de Envío Interior de Argentina: ${instrumento.costoEnvio}</p>

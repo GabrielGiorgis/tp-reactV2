@@ -1,21 +1,39 @@
-import instrumentosData from './instrumentos.json';
+import { useEffect, useState } from 'react';
 
 export interface Instrumento {
   id: string;
-  nombre: string;
+  instrumento: string;
   imagen: string;
   precio: string;
   costoEnvio: string;
   cantidadVendida: string;
+  marca: string;
+  modelo: string;
+  descripcion: string;
 }
 
-const datos: Instrumento[] = instrumentosData.instrumentos.map((instrumento) => ({
-  id: instrumento.id,
-  nombre: instrumento.instrumento,
-  imagen: instrumento.imagen,
-  precio: instrumento.precio,
-  costoEnvio: instrumento.costoEnvio,
-  cantidadVendida: instrumento.cantidadVendida,
-}));
+const useInstrumentos = () => {
+  const [instrumentos, setInstrumentos] = useState([]);
 
-export default datos;
+  useEffect(() => {
+    const fetchInstrumentos = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/api/instrumentos');
+        if (!response.ok) {
+          throw new Error('Error al obtener los datos de los instrumentos');
+        }
+        const data = await response.json();
+        setInstrumentos(data);
+      } catch (error) {
+        console.error(error);
+        // Aquí puedes manejar el error como lo necesites
+      }
+    };
+
+    fetchInstrumentos();
+  }, []);
+
+  return instrumentos;
+};
+
+export default useInstrumentos;
