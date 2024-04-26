@@ -10,3 +10,7 @@ section {
     justify-content: center;
     /* width: 80vw; */
 }
+
+#carrusel {
+    width: 70vw;
+}
