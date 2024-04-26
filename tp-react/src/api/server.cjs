@@ -72,6 +72,22 @@ app.get('/api/instrumentos', async (req, res) => {
   }
 });
 
+app.get('/api/instrumentos/:id', async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  try {
+    // Realizar consulta a la base de datos para obtener el instrumento por su ID
+  const query = 'SELECT * FROM "InstrumentosDB"."public"."instrumento" WHERE "id" = $1';
+    const { rows } = await pool.query(query , [id]);
+    console.log(rows[0]);
+    // Enviar el instrumento como respuesta
+    res.status(200).json(rows[0]);
+  } catch (error) {
+    console.error('Error al obtener el instrumento:', error);
+    res.status(500).json({ error: 'Error al obtener el instrumento' });
+  }
+});
+
 app.listen(3000, () => {
   console.log('Servidor iniciado en http://localhost:3000');
 });
