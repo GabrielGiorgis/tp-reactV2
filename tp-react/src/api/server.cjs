@@ -58,7 +58,7 @@ app.post('/api/instrumentos', async (req, res) => {
   }
 });
 
-app.get('/api/instrumentos', async (req, res) => {
+app.get('/api/instrumentos/list', async (req, res) => {
   try {
     // Realizar consulta a la base de datos para obtener todos los instrumentos
     const query = 'SELECT * FROM "InstrumentosDB"."public"."instrumento"';

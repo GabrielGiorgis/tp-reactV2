@@ -18,7 +18,7 @@ export const useInstrumentos = () => {
   useEffect(() => {
     const fetchInstrumentos = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/instrumentos');
+        const response = await fetch('http://localhost:3000/api/instrumentos/list');
         if (!response.ok) {
           throw new Error('Error al obtener los datos de los instrumentos');
         }

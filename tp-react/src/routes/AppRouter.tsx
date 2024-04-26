@@ -8,7 +8,7 @@ export const AppRouter = () => {
   return (
     <div>
       <Routes>
-        <Route index element={<ListaInstrumentos instrumentos={useInstrumentos()}/>} />
+        <Route path='/api/instrumentos/list' element={<ListaInstrumentos instrumentos={useInstrumentos()}/>} />
         <Route path='/api/instrumentos' element={<InstrumentosBack/>} />
         <Route path='/instrumento/:id' element={<DetalleInstrumento />} />
       </Routes>
