@@ -2,6 +2,8 @@ import { Carousel } from "react-bootstrap"
 import Header from "./Header"
 import "./StyleSheets/StyleLanding.css"
 import Iframe from "react-iframe"
+import ListaInstrumentos from "./ListaInstrumentos"
+import { useInstrumentos } from "../data/datos"
 
 export const Landing = () => {
     return (
@@ -52,7 +54,7 @@ export const Landing = () => {
             </section>
             <h2>Productos</h2>
             <section>
-                <ListaInstrumento />
+                <ListaInstrumentos instrumentos={useInstrumentos()} />
             </section>
         </>
     )
