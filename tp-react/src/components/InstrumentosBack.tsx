@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import instrumentos from '../data/instrumentos.json';
 
 const InstrumentosBack = () => {

@@ -1,31 +1,81 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { getOneInstrumento, Instrumento } from '../data/datos';
-import '../components/StyleSheets/StyleInstrumentoDetalle.css'
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import {
+  deleteInstrumento,
+  getOneInstrumento,
+  Instrumento,
+} from "../data/datos";
+import "../components/StyleSheets/StyleInstrumentoDetalle.css";
+import ModalInstrumento from "./modals/ModalInstrumento";
 
 const DetalleInstrumento = () => {
-  const { id } = useParams(); // Obtener el parámetro 'id' de la URL
+  const { id } = useParams();
   const [instrumento, setInstrumento] = useState<Instrumento | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    // Verificar si id tiene un valor antes de llamar a getOneInstrumento
-    if (id) {
-      const fetchInstrumento = async () => {
-        const data = await getOneInstrumento(id);
+    const fetchData = async () => {
+      if (id) {
+        const data = await getOneInstrumento(parseInt(id));
         setInstrumento(data);
-      };
-
-      fetchInstrumento();
-    }
+      }
+    };
+    fetchData();
   }, [id]);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleDeleteInstrumento = async () => {
+    if (instrumento && instrumento.id) {
+      const deleted = await deleteInstrumento(instrumento.id);
+      if (deleted) {
+        // Lógica para manejar la eliminación exitosa
+        // Puedes navegar a otra página, mostrar un mensaje de éxito, etc.
+        console.log("Instrumento eliminado exitosamente");
+      } else {
+        // Lógica para manejar el error de eliminación
+        console.error("Error al eliminar el instrumento");
+      }
+    }
+  };
+
+  const handleSubmitSuccess = async () => {
+    // Actualizar el instrumento después de la edición exitosa
+    if (id) {
+      const data = await getOneInstrumento(parseInt(id));
+      setInstrumento(data);
+    }
+  };
 
   if (!instrumento) {
     return <div>Cargando...</div>;
   }
 
-  // Renderizar los detalles del instrumento
   return (
     <div className="instrumento-container">
+      <div className="instrumento-acciones">
+        <button className="instrumento-boton-modificar" onClick={openModal}>
+          Modificar
+        </button>
+        <ModalInstrumento
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          instrumento={instrumento}
+          onSubmitSuccess={handleSubmitSuccess}
+        />
+        <button
+          className="instrumento-boton-eliminar"
+          onClick={handleDeleteInstrumento}
+        >
+          Eliminar
+        </button>
+      </div>
       <div className="instrumento-header">
         <div className="instrumento-titulo-imagen">
           <h2>{instrumento.instrumento}</h2>
@@ -37,7 +87,17 @@ const DetalleInstrumento = () => {
         </div>
         <div className="instrumento-precio-envio">
           <p className="instrumento-precio">Precio: ${instrumento.precio}</p>
-          <p className="instrumento-costo-envio">Costo de envío: ${instrumento.costoEnvio}</p>
+          {parseFloat(instrumento.costoEnvio) === 0 ||
+          instrumento.costoEnvio === "G" ? (
+            <p className="instrumento-costo-envio" style={{ color: "#3FBF48" }}>
+              <img src="../../img/camion.png" alt="Camión" />
+              Envío gratis a todo el país
+            </p>
+          ) : (
+            <p className="instrumento-costo-envio" style={{ color: "#F2620F" }}>
+              Costo de Envío Interior de Argentina: ${instrumento.costoEnvio}
+            </p>
+          )}
         </div>
       </div>
       <div className="instrumento-detalles">
@@ -46,7 +106,9 @@ const DetalleInstrumento = () => {
         <p className="instrumento-descripcion">{instrumento.descripcion}</p>
       </div>
       <div className="instrumento-acciones">
-        <button className="instrumento-boton-agregar">Agregar al carrito</button>
+        <button className="instrumento-boton-agregar">
+          Agregar al carrito
+        </button>
         <button className="instrumento-boton-comprar">Comprar ahora</button>
       </div>
     </div>

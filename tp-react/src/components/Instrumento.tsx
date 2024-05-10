@@ -9,7 +9,7 @@ interface InstrumentoProps {
 const InstrumentoComponent: React.FC<InstrumentoProps> = ({ instrumento }) => {
   return (
     <Container>
-      <Row>
+      <Row style={{ marginTop: "30px", marginBottom: "30px" }}>
         <Col>
           <img
             src={"../../img/" + instrumento.imagen}
@@ -19,15 +19,33 @@ const InstrumentoComponent: React.FC<InstrumentoProps> = ({ instrumento }) => {
         <Col xs={10}>
           <h6>{instrumento.instrumento}</h6>
           <h3>${instrumento.precio}</h3>
-          {instrumento.costoEnvio === "0.00" || instrumento.costoEnvio === "G" ? (
-            <p style={{ color: "#3FBF48" }}><img src="../../img/camion.png" alt="Camión" />Envío gratis a todo el país</p>
+          {instrumento.costoEnvio === "0.00" ||
+          instrumento.costoEnvio === "G" ? (
+            <p style={{ color: "#3FBF48" }}>
+              <img src="../../img/camion.png" alt="Camión" /> Envío gratis a
+              todo el país
+            </p>
           ) : (
-            <p style={{ color: "#F2620F" }}>Costo de Envío Interior de Argentina: ${instrumento.costoEnvio}</p>
+            <p style={{ color: "#F2620F" }}>
+              Costo de Envío Interior de Argentina: ${instrumento.costoEnvio}
+            </p>
           )}
           <p>{instrumento.cantidadVendida} vendidos</p>
-          <button onClick={() => window.location.href = `/instrumentos/list/${instrumento.id}`}>Ver mas</button>
+          <button
+            onClick={() =>
+              (window.location.href = `/instrumentos/list/${instrumento.id}`)
+            }
+            style={{
+              backgroundColor: "white",
+              color: "#007bff",
+              border: "1px solid #007bff",
+              borderRadius: "4px",
+              cursor: "pointer",
+            }}
+          >
+            Ver más
+          </button>
         </Col>
-        <hr />
       </Row>
     </Container>
   );
