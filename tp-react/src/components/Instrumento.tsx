@@ -19,18 +19,18 @@ const InstrumentoComponent: React.FC<InstrumentoProps> = ({ instrumento }) => {
         <Col xs={10}>
           <h6>{instrumento.instrumento}</h6>
           <h3>${instrumento.precio}</h3>
-          {instrumento.costoEnvio === "0.00" ||
-          instrumento.costoEnvio === "G" ? (
+          {instrumento.costoenvio === "0.00" ||
+          instrumento.costoenvio === "G" ? (
             <p style={{ color: "#3FBF48" }}>
               <img src="../../img/camion.png" alt="Camión" /> Envío gratis a
               todo el país
             </p>
           ) : (
             <p style={{ color: "#F2620F" }}>
-              Costo de Envío Interior de Argentina: ${instrumento.costoEnvio}
+              Costo de Envío Interior de Argentina: ${instrumento.costoenvio}
             </p>
           )}
-          <p>{instrumento.cantidadVendida} vendidos</p>
+          <p>{instrumento.cantidadvendida} vendidos</p>
           <button
             onClick={() =>
               (window.location.href = `/instrumentos/list/${instrumento.id}`)

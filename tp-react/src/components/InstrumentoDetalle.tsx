@@ -35,9 +35,8 @@ const DetalleInstrumento = () => {
     if (instrumento && instrumento.id) {
       const deleted = await deleteInstrumento(instrumento.id);
       if (deleted) {
-        // Lógica para manejar la eliminación exitosa
-        // Puedes navegar a otra página, mostrar un mensaje de éxito, etc.
         console.log("Instrumento eliminado exitosamente");
+        window.location.href = "/instrumentos/list";
       } else {
         // Lógica para manejar el error de eliminación
         console.error("Error al eliminar el instrumento");
@@ -87,15 +86,15 @@ const DetalleInstrumento = () => {
         </div>
         <div className="instrumento-precio-envio">
           <p className="instrumento-precio">Precio: ${instrumento.precio}</p>
-          {parseFloat(instrumento.costoEnvio) === 0 ||
-          instrumento.costoEnvio === "G" ? (
+          {parseFloat(instrumento.costoenvio) === 0 ||
+          instrumento.costoenvio === "G" ? (
             <p className="instrumento-costo-envio" style={{ color: "#3FBF48" }}>
               <img src="../../img/camion.png" alt="Camión" />
               Envío gratis a todo el país
             </p>
           ) : (
             <p className="instrumento-costo-envio" style={{ color: "#F2620F" }}>
-              Costo de Envío Interior de Argentina: ${instrumento.costoEnvio}
+              Costo de Envío Interior de Argentina: ${instrumento.costoenvio}
             </p>
           )}
         </div>
@@ -103,6 +102,7 @@ const DetalleInstrumento = () => {
       <div className="instrumento-detalles">
         <p className="instrumento-marca">Marca: {instrumento.marca}</p>
         <p className="instrumento-modelo">Modelo: {instrumento.modelo}</p>
+        <p className="instrumento-cantidad">Cantidad Vendida: {instrumento.cantidadvendida}</p>
         <p className="instrumento-descripcion">{instrumento.descripcion}</p>
       </div>
       <div className="instrumento-acciones">

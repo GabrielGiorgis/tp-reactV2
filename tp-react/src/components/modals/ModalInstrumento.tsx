@@ -25,8 +25,8 @@ const ModalInstrumento: React.FC<ModalProps> = ({
       instrumento: "",
       imagen: "",
       precio: "",
-      costoEnvio: "",
-      cantidadVendida: "",
+      costoenvio: "",
+      cantidadvendida: "",
       marca: "",
       modelo: "",
       descripcion: "",
@@ -98,8 +98,8 @@ const ModalInstrumento: React.FC<ModalProps> = ({
             Costo de Envío:
             <input
               type="text"
-              name="costoEnvio"
-              value={formData.costoEnvio}
+              name="costoenvio"
+              value={formData.costoenvio}
               onChange={handleChange}
             />
           </label>
@@ -107,8 +107,8 @@ const ModalInstrumento: React.FC<ModalProps> = ({
             Cantidad Vendida:
             <input
               type="text"
-              name="cantidadVendida"
-              value={formData.cantidadVendida}
+              name="cantidadvendida"
+              value={formData.cantidadvendida}
               onChange={handleChange}
             />
           </label>

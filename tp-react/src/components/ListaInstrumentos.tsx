@@ -18,6 +18,7 @@ const ListaInstrumentos: React.FC<{ instrumentos: Instrumento[] }> = ({
 
   const handleSubmitSuccess = () => {
     console.log("Instrumento creado exitosamente");
+    window.location.reload();
     closeModal();
   };
 

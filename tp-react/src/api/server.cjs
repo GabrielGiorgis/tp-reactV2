@@ -30,14 +30,14 @@ app.post("/api/instrumentos", async (req, res) => {
       modelo,
       imagen,
       precio,
-      costoEnvio,
-      cantidadVendida,
+      costoenvio,
+      cantidadvendida,
       descripcion,
     } = instrumento;
 
     const query = `
         INSERT INTO "InstrumentosDB"."public"."instrumento"
-        ("instrumento", "marca", "modelo", "imagen", "precio", "costoEnvio", "cantidadVendida", "descripcion")
+        ("instrumento", "marca", "modelo", "imagen", "precio", "costoenvio", "cantidadvendida", "descripcion")
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
         RETURNING "id"
       `;
@@ -48,17 +48,20 @@ app.post("/api/instrumentos", async (req, res) => {
       modelo,
       imagen,
       parseFloat(precio),
-      parseFloat(costoEnvio) || 0,
-      parseInt(cantidadVendida),
+      parseFloat(costoenvio) || 0,
+      parseInt(cantidadvendida),
       descripcion,
     ];
 
     const { rows } = await pool.query(query, values);
     const nuevoInstrumento = rows[0];
     res.status(201).json(nuevoInstrumento);
+
   } catch (err) {
+
     console.error(err);
     res.status(500).json({ error: "Error al insertar los datos" });
+
   }
 });
 
@@ -104,29 +107,22 @@ app.put("/api/instrumentos/:id", async (req, res) => {
     modelo,
     imagen,
     precio,
-    costoEnvio,
-    cantidadVendida,
+    costoenvio,
+    cantidadvendida,
     descripcion,
   } = req.body;
+
+  console.log(req.body);
 
   try {
     const query = `
       UPDATE "InstrumentosDB"."public"."instrumento"
-      SET instrumento = $1, marca = $2, modelo = $3, imagen = $4, precio = $5, costoEnvio = $6, cantidadVendida = $7, descripcion = $8
-      WHERE id = $9
+      SET instrumento = '${nombre}', marca = '${marca}', modelo = '${modelo}', imagen = '${imagen}', precio = ${parseFloat(precio)}, costoenvio = ${parseFloat(costoenvio)}, cantidadvendida = ${parseInt(cantidadvendida)}, descripcion = '${descripcion}'
+      WHERE id = ${id}
     `;
-    const values = [
-      nombre,
-      marca,
-      modelo,
-      imagen,
-      parseFloat(precio),
-      parseFloat(costoEnvio) || 0,
-      parseInt(cantidadVendida),
-      descripcion,
-      id,
-    ];
-    await pool.query(query, values);
+    console.log(query);
+    const response = await pool.query(query);
+    console.log(response);
     res.status(200).json({ message: "Instrumento actualizado correctamente" });
   } catch (error) {
     console.error("Error al actualizar el instrumento:", error);
@@ -139,11 +135,15 @@ app.delete("/api/instrumentos/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const query =
-      'DELETE FROM "InstrumentosDB"."public"."instrumento" WHERE id = $1';
+      'DELETE FROM "InstrumentosDB"."public"."instrumento" WHERE "id" = $1';
     await pool.query(query, [id]);
     res.status(200).json({ message: "Instrumento eliminado correctamente" });
   } catch (error) {
     console.error("Error al eliminar el instrumento:", error);
     res.status(500).json({ error: "Error al eliminar el instrumento" });
   }
+});
+
+app.listen(3000, () => {
+  console.log("Servidor iniciado en http://localhost:3000");
 });

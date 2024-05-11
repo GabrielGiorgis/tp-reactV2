@@ -5,8 +5,8 @@ export interface Instrumento {
   instrumento: string;
   imagen: string;
   precio: string;
-  costoEnvio: string;
-  cantidadVendida: string;
+  costoenvio: string;
+  cantidadvendida: string;
   marca: string;
   modelo: string;
   descripcion: string;
@@ -83,6 +83,7 @@ export const updateInstrumento = async (instrumento: Instrumento) => {
         body: JSON.stringify(instrumento),
       }
     );
+    console.log(response);
     if (!response.ok) {
       throw new Error("Error al actualizar el instrumento");
     }
