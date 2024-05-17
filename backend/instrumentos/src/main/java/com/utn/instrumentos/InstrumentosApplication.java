@@ -25,7 +25,7 @@ public class InstrumentosApplication {
         System.out.println("Server started");
     }
 
-    @Bean
+    /*@Bean
     @Transactional
     CommandLineRunner init(CategoriaRepository categoriaRepository, InstrumentoRepository instrumentoRepository) {
         return args -> {
@@ -46,5 +46,5 @@ public class InstrumentosApplication {
 
 
         };
-    }
+    }*/
 }
