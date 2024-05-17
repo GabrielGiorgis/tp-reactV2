@@ -9,7 +9,7 @@ export default function Header() {
                     <Nav className="me-auto">
                         <Nav.Link href="/">Inicio</Nav.Link>
                         <Nav.Link href="/ubicacion">Donde Estamos</Nav.Link>
-                        <Nav.Link href="/instrumentos/list">Instrumentos</Nav.Link>
+                        <Nav.Link href="/instrumentos">Instrumentos</Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>

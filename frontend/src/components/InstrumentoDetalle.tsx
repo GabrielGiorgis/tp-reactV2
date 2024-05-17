@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-  deleteInstrumento,
-  getOneInstrumento,
-  Instrumento,
-} from "../data/datos";
+import { Instrumento } from "../types/Instrumento";
+import { getOneInstrumento, deleteInstrumento } from "../api/useInstrumentos";
 import "../components/StyleSheets/StyleInstrumentoDetalle.css";
 import ModalInstrumento from "./modals/ModalInstrumento";
 
@@ -12,12 +9,23 @@ const DetalleInstrumento = () => {
   const { id } = useParams();
   const [instrumento, setInstrumento] = useState<Instrumento | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       if (id) {
-        const data = await getOneInstrumento(parseInt(id));
-        setInstrumento(data);
+        const parsedId = parseInt(id);
+        if (isNaN(parsedId)) {
+          setError("ID del instrumento inválido");
+          return;
+        }
+        try {
+          const data = await getOneInstrumento(parsedId);
+          setInstrumento(data);
+        } catch (error) {
+          console.error("Error al obtener el instrumento:", error);
+          setError("Error al obtener el instrumento");
+        }
       }
     };
     fetchData();
@@ -32,11 +40,11 @@ const DetalleInstrumento = () => {
   };
 
   const handleDeleteInstrumento = async () => {
-    if (instrumento && instrumento.id) {
-      const deleted = await deleteInstrumento(instrumento.id);
+    if (instrumento && instrumento.idinstrumento) {
+      const deleted = await deleteInstrumento(instrumento.idinstrumento);
       if (deleted) {
         console.log("Instrumento eliminado exitosamente");
-        window.location.href = "/instrumentos/list";
+        window.location.href = "/instrumentos";
       } else {
         // Lógica para manejar el error de eliminación
         console.error("Error al eliminar el instrumento");
@@ -102,7 +110,9 @@ const DetalleInstrumento = () => {
       <div className="instrumento-detalles">
         <p className="instrumento-marca">Marca: {instrumento.marca}</p>
         <p className="instrumento-modelo">Modelo: {instrumento.modelo}</p>
-        <p className="instrumento-cantidad">Cantidad Vendida: {instrumento.cantidadvendida}</p>
+        <p className="instrumento-cantidad">
+          Cantidad Vendida: {instrumento.cantidadvendida}
+        </p>
         <p className="instrumento-descripcion">{instrumento.descripcion}</p>
       </div>
       <div className="instrumento-acciones">

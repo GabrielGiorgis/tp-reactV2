@@ -1,16 +1,7 @@
 import { useEffect, useState } from "react";
+import { Instrumento } from "../types/Instrumento";
 
-export interface Instrumento {
-  id: number | null | undefined;
-  instrumento: string;
-  imagen: string;
-  precio: string;
-  costoenvio: string;
-  cantidadvendida: string;
-  marca: string;
-  modelo: string;
-  descripcion: string;
-}
+const url = "http://localhost:8080";
 
 export const useInstrumentos = () => {
   const [instrumentos, setInstrumentos] = useState<Instrumento[]>([]);
@@ -18,9 +9,7 @@ export const useInstrumentos = () => {
   useEffect(() => {
     const fetchInstrumentos = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:3000/api/instrumentos/list"
-        );
+        const response = await fetch(url + "/api/instrumentos");
         if (!response.ok) {
           throw new Error("Error al obtener los datos de los instrumentos");
         }
@@ -40,8 +29,9 @@ export const useInstrumentos = () => {
 export const getOneInstrumento = async (id: number) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/instrumentos/${id}`
+      url + `/api/instrumentos/${id}`
     );
+    console.log(response);
     if (!response.ok) {
       throw new Error("Error al obtener el instrumento");
     }
@@ -54,7 +44,7 @@ export const getOneInstrumento = async (id: number) => {
 
 export const createInstrumento = async (instrumento: Instrumento) => {
   try {
-    const response = await fetch("http://localhost:3000/api/instrumentos", {
+    const response = await fetch(url + "/api/instrumentos", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -74,7 +64,7 @@ export const createInstrumento = async (instrumento: Instrumento) => {
 export const updateInstrumento = async (instrumento: Instrumento) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/instrumentos/${instrumento.id}`,
+      url + `/api/instrumentos/${instrumento.idinstrumento}`,
       {
         method: "PUT",
         headers: {
@@ -83,7 +73,6 @@ export const updateInstrumento = async (instrumento: Instrumento) => {
         body: JSON.stringify(instrumento),
       }
     );
-    console.log(response);
     if (!response.ok) {
       throw new Error("Error al actualizar el instrumento");
     }
@@ -97,7 +86,7 @@ export const updateInstrumento = async (instrumento: Instrumento) => {
 export const deleteInstrumento = async (id: number) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/instrumentos/${id}`,
+      url + `/api/instrumentos/${id}`,
       {
         method: "DELETE",
       }

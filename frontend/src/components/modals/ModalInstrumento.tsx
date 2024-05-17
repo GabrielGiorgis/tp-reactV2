@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Instrumento } from "../../types/Instrumento";
 import {
-  Instrumento,
   createInstrumento,
   updateInstrumento,
-} from "../../data/datos";
+} from "../../api/useInstrumentos";
+import { useCategorias } from "../../api/useCategorias";
 import "./StyleModal.css";
 
 interface ModalProps {
@@ -19,24 +20,51 @@ const ModalInstrumento: React.FC<ModalProps> = ({
   instrumento,
   onSubmitSuccess,
 }) => {
+  const categorias = useCategorias();
   const [formData, setFormData] = useState<Instrumento>(
     instrumento || {
-      id: null,
+      id: 0,
       instrumento: "",
       imagen: "",
-      precio: "",
+      precio: 0,
       costoenvio: "",
-      cantidadvendida: "",
+      cantidadvendida: 0,
       marca: "",
       modelo: "",
       descripcion: "",
+      idcategoria: categorias[0] || { id: 0, denominacion: "" },
     }
   );
 
+  useEffect(() => {
+    if (instrumento) {
+      setFormData(instrumento);
+    } else if (categorias.length > 0) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        idcategoria: categorias[0],
+      }));
+    }
+  }, [instrumento, categorias]);
+
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (name === "idcategoria") {
+      const selectedCategoria = categorias.find(
+        (categoria) => categoria.id === Number(value)
+      );
+      setFormData({
+        ...formData,
+        idcategoria: selectedCategoria || formData.idcategoria,
+      });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -88,7 +116,7 @@ const ModalInstrumento: React.FC<ModalProps> = ({
           <label>
             Precio:
             <input
-              type="text"
+              type="number"
               name="precio"
               value={formData.precio}
               onChange={handleChange}
@@ -106,7 +134,7 @@ const ModalInstrumento: React.FC<ModalProps> = ({
           <label>
             Cantidad Vendida:
             <input
-              type="text"
+              type="number"
               name="cantidadvendida"
               value={formData.cantidadvendida}
               onChange={handleChange}
@@ -138,11 +166,25 @@ const ModalInstrumento: React.FC<ModalProps> = ({
               onChange={handleChange}
             />
           </label>
+          <label>
+            Categoría:
+            <select
+              name="idcategoria"
+              value={formData.idcategoria.id}
+              onChange={handleChange}
+            >
+              {categorias.map((categoria) => (
+                <option key={categoria.id} value={categoria.id}>
+                  {categoria.denominacion}
+                </option>
+              ))}
+            </select>
+          </label>
           <div className="modal-button-container">
             <button type="submit" className="modal-button">
               {instrumento ? "Guardar Cambios" : "Agregar Instrumento"}
             </button>
-            <button onClick={onClose} className="modal-button">
+            <button type="button" onClick={onClose} className="modal-button">
               Cerrar
             </button>
           </div>

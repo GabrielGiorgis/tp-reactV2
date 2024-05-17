@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Instrumento } from "../data/datos";
+import { Instrumento } from "../types/Instrumento";
 import InstrumentoComponent from "./Instrumento";
 import ModalInstrumento from "./modals/ModalInstrumento";
 

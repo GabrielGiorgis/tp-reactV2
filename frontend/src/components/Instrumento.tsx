@@ -1,5 +1,5 @@
 import React from "react";
-import { Instrumento } from "../data/datos";
+import { Instrumento } from "../types/Instrumento";
 import { Col, Container, Row } from "react-bootstrap";
 
 interface InstrumentoProps {
@@ -33,7 +33,7 @@ const InstrumentoComponent: React.FC<InstrumentoProps> = ({ instrumento }) => {
           <p>{instrumento.cantidadvendida} vendidos</p>
           <button
             onClick={() =>
-              (window.location.href = `/instrumentos/list/${instrumento.id}`)
+              (window.location.href = `/instrumentos/${instrumento.id}`)
             }
             style={{
               backgroundColor: "white",
