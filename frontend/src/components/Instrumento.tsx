@@ -1,12 +1,21 @@
 import React from "react";
 import { Instrumento } from "../types/Instrumento";
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import { useCarrito } from "../hooks/useCarrito";
 
 interface InstrumentoProps {
   instrumento: Instrumento;
 }
 
 const InstrumentoComponent: React.FC<InstrumentoProps> = ({ instrumento }) => {
+  //Solo se llama a los metodos necesarios, en este caso limpiar carrito no tiene sentido, tambien paso la variable de estado cart
+  const {addCarrito, removeCarrito, cart, removeItemCarrito} = useCarrito();
+
+  const verificarInstrumentoEnCarrito = (product: Instrumento) => {
+    return cart.some(item => item.idinstrumento === product.idinstrumento);
+  }
+
+  const isPlatoEnCarrito = verificarInstrumentoEnCarrito(instrumento);
   return (
     <Container>
       <Row style={{ marginTop: "30px", marginBottom: "30px" }}>
@@ -33,7 +42,7 @@ const InstrumentoComponent: React.FC<InstrumentoProps> = ({ instrumento }) => {
           <p>{instrumento.cantidadvendida} vendidos</p>
           <button
             onClick={() =>
-              (window.location.href = `/instrumentos/${instrumento.id}`)
+              (window.location.href = `/instrumentos/${instrumento.idinstrumento}`)
             }
             style={{
               backgroundColor: "white",
@@ -47,6 +56,16 @@ const InstrumentoComponent: React.FC<InstrumentoProps> = ({ instrumento }) => {
           </button>
         </Col>
       </Row>
+      <div style={{ display: "flex", justifyContent: "flex-start" }}>
+        <button className="iconoMasMenos" onClick={()=> removeItemCarrito(instrumento)}>-</button>
+        <Button style={{ border: "none", backgroundColor: "transparent", padding: "0", boxShadow: "none" }}
+        onClick={() => (isPlatoEnCarrito ? removeCarrito(instrumento) : addCarrito(instrumento))}>
+          {
+            isPlatoEnCarrito ? <Button>Eliminar de Carrito</Button> : <Button>Agregar al carrito</Button>
+          }
+        </Button>
+        <button className="iconoMasMenos" onClick={()=> addCarrito(instrumento)}>+</button>
+      </div>
     </Container>
   );
 };

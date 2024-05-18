@@ -11,4 +11,5 @@ export interface Instrumento {
     cantidadvendida: number;
     descripcion: string;
     idcategoria: Categoria;
+    cantidadEnCarrito: number;
 }

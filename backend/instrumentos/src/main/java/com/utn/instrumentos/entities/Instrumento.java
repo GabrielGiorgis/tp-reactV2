@@ -24,6 +24,7 @@ public class Instrumento {
     private String costoenvio;
     private Integer cantidadvendida;
     private String descripcion;
+    private int cantidadEnPedido;
 
     @ManyToOne
     @JoinColumn(name = "idcategoria")
