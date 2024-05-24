@@ -30,4 +30,8 @@ public class Instrumento {
     @JoinColumn(name = "idcategoria")
     private Categoria categoria;
 
+    @ManyToOne
+    @JoinColumn(name = "pedido_id", insertable = false, updatable = false)
+    private Pedido pedido;
+
 }
