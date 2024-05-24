@@ -1,5 +1,6 @@
-import { Instrumento } from "./Instrumento";
+
 
 export interface Pedido{
-    instrumentos: Instrumento[];
+    fechaPedido: Date;
+    totalPedido: number;
 }
