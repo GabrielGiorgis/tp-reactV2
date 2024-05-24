@@ -26,6 +26,7 @@ export function Carrito() {
     }
 
     const handleCreate = async (products: Instrumento[]) => {
+        console.log(products);
         const pedido : Pedido = {
             instrumentos: []
         }
