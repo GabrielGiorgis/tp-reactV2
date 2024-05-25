@@ -5,11 +5,12 @@ import { Pedido } from "../types/Pedido";
 import {DetallePedido} from "../types/DetallePedido";
 import "./StyleSheets/StyleCart.css"
 import { createDetalle } from "../api/useDetallePedido";
+import { CheckoutMP } from "./CheckoutMP";
 
 function CartItem(item: Instrumento) {
     return (
         <div className="cart-item" key={item.idinstrumento}>
-            <img className="cart-item-image" src={item.imagen} alt={item.instrumento} />
+            <img className="cart-item-image" src={"../../img/"+item.imagen} alt={item.instrumento} />
             <div className="cart-item-details">
                 <p className="cart-item-name"><strong>{item.instrumento}</strong></p>
                 <p className="cart-item-shipping">{item.costoenvio}</p>
@@ -31,7 +32,8 @@ export function Carrito() {
         console.log(products);
         const pedido : Pedido = {
             fechaPedido: new Date(),
-            totalPedido: 0
+            totalPedido: 0,
+            titulo: "Pedido de instrumentos con monto de $" + products.reduce((total, product) => total + product.precio, 0)
         }
         pedido.totalPedido = products.reduce((total, product) => total + product.precio, 0);
         // let createdPedido : Pedido;
@@ -61,22 +63,17 @@ export function Carrito() {
         }
     }
     return (
-        <><div style={{
-            bottom: "80px",
-            right: "20px",
-            padding: "10px 20px",
-            backgroundColor: "#007bff",
-            color: "white",
-            border: "none",
-        }}>
-            <label>Carrito</label>
-            <ul>
-                {cart.map((item: Instrumento) => <CartItem key={item.idinstrumento} {...item}/>)}
+        <div className="cart-container">
+            <label className="cart-label">Carrito</label>
+            <ul className="cart-item-list">
+                {cart.map((item) => (
+                    <CartItem key={item.idinstrumento} {...item} />
+                ))}
             </ul>
-            <button onClick={limpiarCarrito}>Limpiar carrito</button>
-            <button onClick={mostrarCarrito}>Mostrar carrito</button>
-            <button onClick={() => handleCreate(cart)}>Crear pedido</button>
+            <button onClick={limpiarCarrito} className="cart-button">Limpiar carrito</button>
+            <button onClick={mostrarCarrito} className="cart-button">Mostrar carrito</button>
+            <button onClick={() => handleCreate(cart)} className="cart-button">Crear pedido</button>
+            <CheckoutMP montoCarrito={cart.reduce((total, product) => total + product.precio, 0)} />
         </div>
-        </>
-    )
+    );
 }
