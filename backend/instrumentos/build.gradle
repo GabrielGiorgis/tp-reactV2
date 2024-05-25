@@ -33,6 +33,9 @@ dependencies {
 
 	//SWAGGER
 	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.1.0'
+
+	//MERCADO PAGO
+	implementation 'com.mercadopago:sdk-java:2.1.24'
 }
 
 tasks.named('test') {

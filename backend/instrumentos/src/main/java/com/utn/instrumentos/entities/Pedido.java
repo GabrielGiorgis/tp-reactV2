@@ -21,7 +21,7 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPedido;
-
+    private String titulo;
     private LocalDate fechaPedido = LocalDate.now();
     private double totalPedido;
 }
