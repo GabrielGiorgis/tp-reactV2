@@ -7,6 +7,7 @@ import { RutaPrivada } from "../components/controlAcceso/RutaPrivada"
 import LoaderPage from "../components/LoaderPage"
 import LoginForm from "../components/LoginForm"
 import RegisterForm from "../components/RegisterForm"
+import { Logout } from "../components/Logout"
 
 export const AppRouter = () => {
 
@@ -37,6 +38,7 @@ export const AppRouter = () => {
             </>
           } />
           <Route path='/login' element={<LoginForm />} />
+          <Route path='/logout' element={<Logout />} />
           <Route path='/register' element={<RegisterForm />} />
           <Route index element={
             <>

@@ -4,12 +4,16 @@ import { Instrumento } from "../types/Instrumento";
 import { getOneInstrumento, deleteInstrumento } from "../api/useInstrumentos";
 import "../components/StyleSheets/StyleInstrumentoDetalle.css";
 import ModalInstrumento from "./modals/ModalInstrumento";
+import { UsuarioService } from "./service/UsuarioService";
+import Usuario from "./entidades/Usuario";
 
 const DetalleInstrumento = () => {
   const { id } = useParams();
   const [instrumento, setInstrumento] = useState<Instrumento | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [usuario, setUsuario] = useState<Usuario>();
+  const usuarioService = new UsuarioService();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,6 +34,17 @@ const DetalleInstrumento = () => {
     };
     fetchData();
   }, [id]);
+
+  useEffect(() => {
+    const idUser = localStorage.getItem('idUser')
+    if (idUser != null) {
+      const fetchUsuario = async () => {
+        const usuario = await usuarioService.getUsuarioByid(Number(idUser));
+        if (usuario != undefined) setUsuario(usuario);
+      };
+      fetchUsuario();
+    }
+  }, []);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -65,63 +80,68 @@ const DetalleInstrumento = () => {
   }
 
   return (
-    <div className="instrumento-container">
-      <div className="instrumento-acciones">
-        <button className="instrumento-boton-modificar" onClick={openModal}>
-          Modificar
-        </button>
-        <ModalInstrumento
-          isOpen={isModalOpen}
-          onClose={closeModal}
-          instrumento={instrumento}
-          onSubmitSuccess={handleSubmitSuccess}
-        />
-        <button
-          className="instrumento-boton-eliminar"
-          onClick={handleDeleteInstrumento}
-        >
-          Eliminar
-        </button>
-      </div>
-      <div className="instrumento-header">
-        <div className="instrumento-titulo-imagen">
-          <h2>{instrumento.instrumento}</h2>
-          <img
-            src={"../../img/" + instrumento.imagen}
-            alt={instrumento.instrumento}
-            className="instrumento-imagen"
-          />
+    <>
+      <br /><br /><br />
+      <div className="instrumento-container">
+        <div className="instrumento-header">
+          <div className="instrumento-titulo-imagen">
+            <h2>{instrumento.instrumento}</h2>
+            <img
+              src={"../../img/" + instrumento.imagen}
+              alt={instrumento.instrumento}
+              className="instrumento-imagen"
+            />
+          </div>
+          <div className="instrumento-precio-envio">
+            <p className="instrumento-precio">Precio: ${instrumento.precio}</p>
+            {parseFloat(instrumento.costoenvio) === 0 ||
+              instrumento.costoenvio === "G" ? (
+              <p className="instrumento-costo-envio" style={{ color: "#3FBF48" }}>
+                <img src="../../img/camion.png" alt="Camión" />
+                Envío gratis a todo el país
+              </p>
+            ) : (
+              <p className="instrumento-costo-envio" style={{ color: "#F2620F" }}>
+                Costo de Envío Interior de Argentina: ${instrumento.costoenvio}
+              </p>
+            )}
+          </div>
         </div>
-        <div className="instrumento-precio-envio">
-          <p className="instrumento-precio">Precio: ${instrumento.precio}</p>
-          {parseFloat(instrumento.costoenvio) === 0 ||
-          instrumento.costoenvio === "G" ? (
-            <p className="instrumento-costo-envio" style={{ color: "#3FBF48" }}>
-              <img src="../../img/camion.png" alt="Camión" />
-              Envío gratis a todo el país
-            </p>
-          ) : (
-            <p className="instrumento-costo-envio" style={{ color: "#F2620F" }}>
-              Costo de Envío Interior de Argentina: ${instrumento.costoenvio}
-            </p>
+        <div className="instrumento-detalles">
+          <p className="instrumento-marca">Marca: {instrumento.marca}</p>
+          <p className="instrumento-modelo">Modelo: {instrumento.modelo}</p>
+          <p className="instrumento-cantidad">
+            Cantidad Vendida: {instrumento.cantidadvendida}
+          </p>
+          <p className="instrumento-descripcion">{instrumento.descripcion}</p>
+        </div>
+        <div className="instrumento-acciones">
+          <button className="instrumento-boton-agregar">
+            Agregar al carrito
+          </button>
+          <button className="instrumento-boton-comprar">Comprar ahora</button>
+          {usuario && (usuario.rol === 'ADMINISTRADOR' || usuario.rol === 'OPERADOR') && (
+            <>
+              <button className="instrumento-boton-modificar" onClick={openModal}>
+                Modificar
+              </button>
+              <ModalInstrumento
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                instrumento={instrumento}
+                onSubmitSuccess={handleSubmitSuccess}
+              />
+              <button
+                className="instrumento-boton-eliminar"
+                onClick={handleDeleteInstrumento}
+              >
+                Eliminar
+              </button>
+            </>
           )}
         </div>
       </div>
-      <div className="instrumento-detalles">
-        <p className="instrumento-marca">Marca: {instrumento.marca}</p>
-        <p className="instrumento-modelo">Modelo: {instrumento.modelo}</p>
-        <p className="instrumento-cantidad">
-          Cantidad Vendida: {instrumento.cantidadvendida}
-        </p>
-        <p className="instrumento-descripcion">{instrumento.descripcion}</p>
-      </div>
-      <div className="instrumento-acciones">
-        <button className="instrumento-boton-agregar">
-          Agregar al carrito
-        </button>
-        <button className="instrumento-boton-comprar">Comprar ahora</button>
-      </div>
-    </div>
+    </>
   );
 };
 

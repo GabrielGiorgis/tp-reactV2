@@ -4,8 +4,8 @@ import "./StyleSheets/StyleLanding.css"
 export const Landing = () => {
     return (
         <>
+            <br /><br /><br />
             <h2>Musical Hendrix</h2>
-
             <section id="landing-section">
                 <Carousel id="carrusel">
                     <Carousel.Item>

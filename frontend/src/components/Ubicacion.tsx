@@ -4,6 +4,7 @@ import "./StyleSheets/StyleLanding.css"
 function Ubicacion() {
     return (
         <>
+            <br /><br /><br />
             <h2>Donde encontrarnos</h2>
             <section id="seccion-ubicacion">
                 <Iframe
