@@ -1,21 +1,49 @@
 import { Route, Routes } from "react-router-dom"
-import ListaInstrumentos from "../components/ListaInstrumentos"
 import { useInstrumentos } from "../api/useInstrumentos"
-import DetalleInstrumento from "../components/InstrumentoDetalle"
 import { Landing } from "../components/Landing"
 import Header from "../components/Header"
-import { Ubicacion } from "../components/Ubicacion"
+import { Suspense, lazy } from "react"
+import { RutaPrivada } from "../components/controlAcceso/RutaPrivada"
+import LoaderPage from "../components/LoaderPage"
+import LoginForm from "../components/LoginForm"
+
 export const AppRouter = () => {
+
+  const ListaInstrumentos = lazy(() => import('../components/ListaInstrumentos'));
+  const DetalleInstrumento = lazy(() => import('../components/InstrumentoDetalle'));
+  const Ubicacion = lazy(() => import('../components/Ubicacion'));
 
   return (
     <div>
-      <Header />
-      <Routes>
-        <Route path='/instrumentos' element={<ListaInstrumentos instrumentos={useInstrumentos()} />} />
-        <Route path='/instrumentos/:id' element={<DetalleInstrumento />} />
-        <Route path='/ubicacion' element={<Ubicacion />} />
-        <Route index element={<Landing />} />
-      </Routes>
+      <Suspense fallback={<LoaderPage></LoaderPage>} >
+        <Routes>
+          <Route path='/instrumentos' element={
+            <RutaPrivada>
+              <Header />
+              <ListaInstrumentos instrumentos={useInstrumentos()} />
+            </RutaPrivada>
+          } />
+          <Route path='/instrumentos/:id' element={
+            <RutaPrivada>
+              <Header />
+              <DetalleInstrumento />
+            </RutaPrivada>
+          } />
+          <Route path='/ubicacion' element={
+            <>
+              <Header />
+              <Ubicacion />
+            </>
+          } />
+          <Route path='/login' element={<LoginForm />} />
+          <Route index element={
+            <>
+              <Header />
+              <Landing />
+            </>
+          } />
+        </Routes>
+      </Suspense>
     </div>
   )
 }

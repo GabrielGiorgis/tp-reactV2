@@ -1,7 +1,7 @@
 import Iframe from "react-iframe"
 import "./StyleSheets/StyleLanding.css"
 
-export const Ubicacion = () => {
+function Ubicacion() {
     return (
         <>
             <h2>Donde encontrarnos</h2>
@@ -20,3 +20,5 @@ export const Ubicacion = () => {
         </>
     )
 }
+
+export default Ubicacion;
