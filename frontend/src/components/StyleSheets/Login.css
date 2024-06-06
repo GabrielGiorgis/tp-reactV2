@@ -1,0 +1,51 @@
+/* styles.css */
+
+.login-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.login-form h2 {
+    margin-top: 0;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"],
+.login-form button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.login-form button {
+    background-color: #4caf50;
+    color: white;
+    cursor: pointer;
+}
+
+.login-form button:hover {
+    background-color: #45a049;
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.login-form .checkbox-label {
+    margin-top: 10px;
+}
+
+.login-form .checkbox-label input[type="checkbox"] {
+    margin-right: 5px;
+}
