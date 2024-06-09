@@ -70,4 +70,4 @@ export function CarritoContextProvider({ children }: {children: ReactNode}) {
             {children}
         </CartContext.Provider>
     )
-};
+}

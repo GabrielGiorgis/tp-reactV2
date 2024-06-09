@@ -23,7 +23,7 @@ const ModalInstrumento: React.FC<ModalProps> = ({
   const categorias = useCategorias();
   const [formData, setFormData] = useState<Instrumento>(
     instrumento || {
-      id: 0,
+      idinstrumento: 0,
       instrumento: "",
       imagen: "",
       precio: 0,
@@ -33,6 +33,7 @@ const ModalInstrumento: React.FC<ModalProps> = ({
       modelo: "",
       descripcion: "",
       idcategoria: categorias[0] || { id: 0, denominacion: "" },
+      cantidadEnCarrito: 0,
     }
   );
 
@@ -56,7 +57,7 @@ const ModalInstrumento: React.FC<ModalProps> = ({
 
     if (name === "idcategoria") {
       const selectedCategoria = categorias.find(
-        (categoria) => categoria.id === Number(value)
+        (categoria) => categoria.idcategoria === Number(value)
       );
       setFormData({
         ...formData,
@@ -72,7 +73,10 @@ const ModalInstrumento: React.FC<ModalProps> = ({
     try {
       if (instrumento) {
         // Actualizar un instrumento existente
-        await updateInstrumento({ ...formData, id: instrumento.id });
+        await updateInstrumento({
+          ...formData,
+          idinstrumento: instrumento.idinstrumento,
+        });
       } else {
         // Crear un nuevo instrumento
         await createInstrumento(formData);
@@ -170,11 +174,14 @@ const ModalInstrumento: React.FC<ModalProps> = ({
             Categoría:
             <select
               name="idcategoria"
-              value={formData.idcategoria.id}
+              value={formData.idcategoria.idcategoria}
               onChange={handleChange}
             >
               {categorias.map((categoria) => (
-                <option key={categoria.id} value={categoria.id}>
+                <option
+                  key={categoria.idcategoria}
+                  value={categoria.idcategoria}
+                >
                   {categoria.denominacion}
                 </option>
               ))}

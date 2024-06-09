@@ -14,14 +14,18 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/pedido-detalle")
 public class PedidoDetalleController {
+
     @Autowired
     private PedidoDetalleService pedidoDetalleService;
-    @PostMapping
-    public PedidoDetalle addPedidoDetalle(@RequestBody PedidoDetalle pedidoDetalle) {
-        return pedidoDetalleService.create(pedidoDetalle);
-    }
+
     @GetMapping
     public List<PedidoDetalle> getAllPedidoDetalle() {
         return pedidoDetalleService.findAll();
     }
+
+    @PostMapping
+    public PedidoDetalle addPedidoDetalle(@RequestBody PedidoDetalle pedidoDetalle) {
+        return pedidoDetalleService.create(pedidoDetalle);
+    }
+
 }

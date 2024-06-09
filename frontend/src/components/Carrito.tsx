@@ -34,9 +34,9 @@ export function Carrito() {
         const pedido: Pedido = {
             fechaPedido: new Date(),
             totalPedido: 0,
-            titulo: "Pedido de instrumentos con monto de $" + products.reduce((total, product) => total + product.precio, 0)
+            titulo: "Pedido de instrumentos con monto de $" + products.reduce((total, product) => total + product.precio * product.cantidadEnCarrito, 0)
         };
-        pedido.totalPedido = products.reduce((total, product) => total + product.precio, 0);
+        pedido.totalPedido = products.reduce((total, product) => total + product.precio * product.cantidadEnCarrito, 0);
 
         const detallesPedido: DetallePedido[] = products.map(product => ({
             cantidad: product.cantidadEnCarrito,
@@ -70,7 +70,7 @@ export function Carrito() {
                 </ul>
                 <button onClick={limpiarCarrito} className="cart-button">Limpiar carrito</button>
                 <button onClick={() => handleCreate(cart)} className="cart-button">Crear pedido</button>
-                <CheckoutMP montoCarrito={cart.reduce((total, product) => total + product.precio, 0)} />
+                <CheckoutMP montoCarrito={cart.reduce((total, product) => total + product.precio * product.cantidadEnCarrito, 0)} />
             </div>
         </>
     );

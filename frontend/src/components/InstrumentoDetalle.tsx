@@ -35,8 +35,15 @@ const DetalleInstrumento = () => {
     fetchData();
   }, [id]);
 
+  const generarPDF = () => {
+    window.open(
+      "http://localhost:8080/api/instrumentos/downloadPdfInstrumento/" + id,
+      "_blank"
+    );
+  };
+
   useEffect(() => {
-    const idUser = localStorage.getItem('idUser')
+    const idUser = localStorage.getItem("idUser");
     if (idUser != null) {
       const fetchUsuario = async () => {
         const usuario = await usuarioService.getUsuarioByid(Number(idUser));
@@ -81,7 +88,9 @@ const DetalleInstrumento = () => {
 
   return (
     <>
-      <br /><br /><br />
+      <br />
+      <br />
+      <br />
       <div className="instrumento-container">
         <div className="instrumento-header">
           <div className="instrumento-titulo-imagen">
@@ -95,13 +104,19 @@ const DetalleInstrumento = () => {
           <div className="instrumento-precio-envio">
             <p className="instrumento-precio">Precio: ${instrumento.precio}</p>
             {parseFloat(instrumento.costoenvio) === 0 ||
-              instrumento.costoenvio === "G" ? (
-              <p className="instrumento-costo-envio" style={{ color: "#3FBF48" }}>
+            instrumento.costoenvio === "G" ? (
+              <p
+                className="instrumento-costo-envio"
+                style={{ color: "#3FBF48" }}
+              >
                 <img src="../../img/camion.png" alt="Camión" />
                 Envío gratis a todo el país
               </p>
             ) : (
-              <p className="instrumento-costo-envio" style={{ color: "#F2620F" }}>
+              <p
+                className="instrumento-costo-envio"
+                style={{ color: "#F2620F" }}
+              >
                 Costo de Envío Interior de Argentina: ${instrumento.costoenvio}
               </p>
             )}
@@ -120,25 +135,32 @@ const DetalleInstrumento = () => {
             Agregar al carrito
           </button>
           <button className="instrumento-boton-comprar">Comprar ahora</button>
-          {usuario && (usuario.rol === 'ADMINISTRADOR' || usuario.rol === 'OPERADOR') && (
-            <>
-              <button className="instrumento-boton-modificar" onClick={openModal}>
-                Modificar
-              </button>
-              <ModalInstrumento
-                isOpen={isModalOpen}
-                onClose={closeModal}
-                instrumento={instrumento}
-                onSubmitSuccess={handleSubmitSuccess}
-              />
-              <button
-                className="instrumento-boton-eliminar"
-                onClick={handleDeleteInstrumento}
-              >
-                Eliminar
-              </button>
-            </>
-          )}
+          {usuario &&
+            (usuario.rol === "ADMINISTRADOR" || usuario.rol === "OPERADOR") && (
+              <>
+                <button
+                  className="instrumento-boton-modificar"
+                  onClick={openModal}
+                >
+                  Modificar
+                </button>
+                <ModalInstrumento
+                  isOpen={isModalOpen}
+                  onClose={closeModal}
+                  instrumento={instrumento}
+                  onSubmitSuccess={handleSubmitSuccess}
+                />
+                <button
+                  className="instrumento-boton-eliminar"
+                  onClick={handleDeleteInstrumento}
+                >
+                  Eliminar
+                </button>
+                <a className="btn btn-success" onClick={() => generarPDF()}>
+                  Generar PDF
+                </a>
+              </>
+            )}
         </div>
       </div>
     </>

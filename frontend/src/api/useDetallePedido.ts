@@ -8,7 +8,7 @@ export const useDetallePedido = () => {
     useEffect(() => {
         const fetchDetalles = async () => {
             try {
-                const response = await fetch(url + "/api/detalle-pedido");
+                const response = await fetch(url + "/api/pedido-detalle");
                 if (!response.ok) {
                     throw new Error("Error al obtener los datos de los pedidos");
                 }

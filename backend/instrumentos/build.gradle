@@ -36,6 +36,13 @@ dependencies {
 
 	//MERCADO PAGO
 	implementation 'com.mercadopago:sdk-java:2.1.24'
+
+	//APACHE POI
+	implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '3.17'
+
+	//IText
+	implementation group: 'com.lowagie', name: 'itext', version: '2.1.7'
+
 }
 
 tasks.named('test') {
