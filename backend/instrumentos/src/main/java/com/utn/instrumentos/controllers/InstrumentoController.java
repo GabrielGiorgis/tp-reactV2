@@ -60,9 +60,7 @@ public class InstrumentoController {
     @GetMapping("/downloadPdfInstrumento/{id}")
     public ResponseEntity<byte[]> downloadPdf(@PathVariable Long id) {
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-            InstrumentoPdfManager mPrintPdf = new InstrumentoPdfManager();
-            // Crear un nuevo documento
-            mPrintPdf.downloadPdf(id, outputStream);
+            instrumentoPdfManager.downloadPdf(id, outputStream);
 
             // Obtener la fecha y hora actual
             LocalDateTime dateTime = LocalDateTime.now();

@@ -64,7 +64,7 @@ public class InstrumentoPdfManager {
 
     public ResponseEntity<byte[]> downloadPdf(Long instrumentoId, ByteArrayOutputStream outputStream) {
         try {
-            Document document = new Document(PageSize.A4, 30, 30, 0, 30);
+            Document document = new Document(PageSize.A4, 30, 30, 30, 30);
 
             Instrumento instrumento = instrumentoService.getInstrumentoById(instrumentoId);
 
@@ -85,9 +85,11 @@ public class InstrumentoPdfManager {
             PdfPCell logoUTN = new PdfPCell(imgCabeceraLeft);
             logoUTN.setBorder(Rectangle.NO_BORDER);
             logoUTN.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+            logoUTN.setVerticalAlignment(PdfPCell.ALIGN_CENTER);
             PdfPCell logoInstrumentos = new PdfPCell(imgCabeceraRight);
             logoInstrumentos.setBorder(Rectangle.NO_BORDER);
             logoInstrumentos.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
+            logoInstrumentos.setVerticalAlignment(PdfPCell.ALIGN_CENTER);
 
             tableCabecera.addCell(logoUTN);
             tableCabecera.addCell(logoInstrumentos);
@@ -103,7 +105,8 @@ public class InstrumentoPdfManager {
             document.add(paragraph);
 
             Image imgInstrumento = Image.getInstance("http://localhost:8080/images/" + instrumento.getImagen());
-            imgInstrumento.scaleAbsolute(500f, 300f);
+            imgInstrumento.scalePercent(100f);
+            imgInstrumento.setAlignment(Element.ALIGN_CENTER);
 
             document.add(imgInstrumento);
 

@@ -22,7 +22,7 @@ const InstrumentoComponent: React.FC<InstrumentoProps> = ({ instrumento }) => {
       <Row style={{ marginTop: "30px", marginBottom: "30px" }}>
         <Col>
           <img
-            src={"../../img/" + instrumento.imagen}
+            src={`http://localhost:8080/images/${instrumento.imagen}`}
             alt={instrumento.instrumento}
           />
         </Col>
@@ -32,7 +32,7 @@ const InstrumentoComponent: React.FC<InstrumentoProps> = ({ instrumento }) => {
           {instrumento.costoenvio === "0.00" ||
             instrumento.costoenvio === "G" ? (
             <p style={{ color: "#3FBF48" }}>
-              <img src="../../img/camion.png" alt="Camión" /> Envío gratis a
+              <img src="http://localhost:8080/images/camion.png" alt="Camión" /> Envío gratis a
               todo el país
             </p>
           ) : (

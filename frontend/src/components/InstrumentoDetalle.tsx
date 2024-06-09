@@ -96,7 +96,7 @@ const DetalleInstrumento = () => {
           <div className="instrumento-titulo-imagen">
             <h2>{instrumento.instrumento}</h2>
             <img
-              src={"../../img/" + instrumento.imagen}
+              src={`http://localhost:8080/images/${instrumento.imagen}`}
               alt={instrumento.instrumento}
               className="instrumento-imagen"
             />
@@ -109,7 +109,7 @@ const DetalleInstrumento = () => {
                 className="instrumento-costo-envio"
                 style={{ color: "#3FBF48" }}
               >
-                <img src="../../img/camion.png" alt="Camión" />
+                <img src="http://localhost:8080/images/camion.png" alt="Camión" />
                 Envío gratis a todo el país
               </p>
             ) : (

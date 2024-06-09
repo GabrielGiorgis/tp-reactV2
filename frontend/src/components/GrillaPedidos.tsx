@@ -6,12 +6,20 @@ import { useState } from "react";
 function GrillaPedidos() {
   const [fechaDesde, setFechaDesde] = useState("");
   const [fechaHasta, setFechaHasta] = useState("");
+  const [error, setError] = useState({ fechaDesde: false, fechaHasta: false });
 
   const detallesPedidos = useDetallePedido();
 
   const generarExcel = async () => {
-    if (!fechaDesde || !fechaHasta) {
-      alert("Por favor selecciona ambas fechas.");
+    const errores = {
+      fechaDesde: !fechaDesde,
+      fechaHasta: !fechaHasta,
+    };
+
+    setError(errores);
+
+    // Si hay errores, no continúes
+    if (errores.fechaDesde || errores.fechaHasta) {
       return;
     }
 
@@ -25,9 +33,9 @@ function GrillaPedidos() {
   return (
     <>
       <Header />
-      <div className="container" style={{ padding: "100px, 0" }}>
+      <div className="container" style={{ padding: "80px 0" }}>
         <div className="row">
-          <div className="col">
+          <div className="col" style={{ marginBottom: "20px" }}>
             <label htmlFor="fechaDesde" className="form-label">
               Fecha Desde:
             </label>
@@ -36,10 +44,15 @@ function GrillaPedidos() {
               type="date"
               value={fechaDesde}
               onChange={(e) => setFechaDesde(e.target.value)}
-              className="form-control"
+              className={`form-control ${error.fechaDesde ? "is-invalid" : ""}`}
             />
+            {error.fechaDesde && (
+              <div className="invalid-feedback">
+                Por favor, ingrese la fecha desde.
+              </div>
+            )}
           </div>
-          <div className="col">
+          <div className="col" style={{ marginBottom: "20px" }}>
             <label htmlFor="fechaHasta" className="form-label">
               Fecha Hasta:
             </label>
@@ -48,10 +61,18 @@ function GrillaPedidos() {
               type="date"
               value={fechaHasta}
               onChange={(e) => setFechaHasta(e.target.value)}
-              className="form-control"
+              className={`form-control ${error.fechaHasta ? "is-invalid" : ""}`}
             />
+            {error.fechaHasta && (
+              <div className="invalid-feedback">
+                Por favor, ingrese la fecha hasta.
+              </div>
+            )}
           </div>
-          <div className="col d-flex align-items-end">
+          <div
+            className="col d-flex align-items-end"
+            style={{ marginBottom: "20px" }}
+          >
             <button className="btn btn-success" onClick={generarExcel}>
               Generar Excel
             </button>
@@ -80,8 +101,8 @@ function GrillaPedidos() {
                   <td>{detalle.instrumento.marca}</td>
                   <td>{detalle.instrumento.modelo}</td>
                   <td>{detalle.cantidad}</td>
-                  <td>{detalle.instrumento.precio}</td>
-                  <td>{detalle.cantidad * detalle.instrumento.precio}</td>
+                  <td>${detalle.instrumento.precio}</td>
+                  <td>${detalle.cantidad * detalle.instrumento.precio}</td>
                 </tr>
               ))}
             </tbody>

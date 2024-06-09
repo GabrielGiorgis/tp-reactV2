@@ -11,7 +11,7 @@ import React, { useState } from "react";
 function CartItem(item: Instrumento) {
     return (
         <div className="cart-item" key={item.idinstrumento}>
-            <img className="cart-item-image" src={"../../img/" + item.imagen} alt={item.instrumento} />
+            <img className="cart-item-image" src={"http://localhost:8080/images/" + item.imagen} alt={item.instrumento} />
             <div className="cart-item-details">
                 <p className="cart-item-name"><strong>{item.instrumento}</strong></p>
                 <p className="cart-item-price"><strong>{item.precio}</strong></p>
@@ -59,7 +59,7 @@ export function Carrito() {
     return (
         <>
             <button className="floating-cart-button" onClick={mostrarCarrito}>
-                <img src="../../img/shopping_cart.svg" alt="" />
+                <img src="http://localhost:8080/images/shopping_cart.svg" alt="" />
             </button>
             <div className={`cart-container ${isVisible ? "visible" : ""}`}>
                 <label className="cart-label">Carrito</label>
