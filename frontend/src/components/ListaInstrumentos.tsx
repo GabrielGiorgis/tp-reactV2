@@ -4,7 +4,7 @@ import InstrumentoComponent from "./Instrumento";
 import ModalInstrumento from "./modals/ModalInstrumento";
 import { CarritoContextProvider } from "./context/CarritoContext";
 import { Carrito } from "./Carrito";
-import { UsuarioService } from "./service/UsuarioService";
+import { UsuarioService } from "../service/UsuarioService";
 import Usuario from "./entidades/Usuario";
 import { useNavigate } from "react-router-dom";
 

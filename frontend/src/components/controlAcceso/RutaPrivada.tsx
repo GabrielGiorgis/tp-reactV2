@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Usuario from '../entidades/Usuario.ts';
-import { UsuarioService } from '../service/UsuarioService.ts';
+import { UsuarioService } from '../../service/UsuarioService.ts';
 
 export const RutaPrivada = ({ children }: { children: ReactNode }) => {
     const [usuario, setUsuario] = useState<Usuario | undefined>();

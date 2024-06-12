@@ -32,7 +32,7 @@ const ModalInstrumento: React.FC<ModalProps> = ({
       marca: "",
       modelo: "",
       descripcion: "",
-      idcategoria: categorias[0] || { id: 0, denominacion: "" },
+      categoria: categorias[0] || { id: 0, denominacion: "" },
       cantidadEnCarrito: 0,
     }
   );
@@ -61,7 +61,7 @@ const ModalInstrumento: React.FC<ModalProps> = ({
       );
       setFormData({
         ...formData,
-        idcategoria: selectedCategoria || formData.idcategoria,
+        categoria: selectedCategoria || formData.categoria,
       });
     } else {
       setFormData({ ...formData, [name]: value });
@@ -174,7 +174,7 @@ const ModalInstrumento: React.FC<ModalProps> = ({
             Categoría:
             <select
               name="idcategoria"
-              value={formData.idcategoria.idcategoria}
+              value={formData.categoria.idcategoria}
               onChange={handleChange}
             >
               {categorias.map((categoria) => (

@@ -1,4 +1,4 @@
-import Usuario from "../entidades/Usuario";
+import Usuario from "../components/entidades/Usuario";
 
 export class UsuarioService {
     usuario: null;

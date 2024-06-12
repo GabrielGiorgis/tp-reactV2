@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { UsuarioService } from "./service/UsuarioService";
+import { UsuarioService } from "../service/UsuarioService";
 import Usuario from "./entidades/Usuario";
 
 export default function Header() {

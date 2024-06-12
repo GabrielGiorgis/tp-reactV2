@@ -10,6 +10,6 @@ export interface Instrumento {
     costoenvio: string;
     cantidadvendida: number;
     descripcion: string;
-    idcategoria: Categoria;
+    categoria: Categoria;
     cantidadEnCarrito: number;
 }

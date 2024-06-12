@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './StyleSheets/Login.css'
-import { UsuarioService } from './service/UsuarioService';
+import { UsuarioService } from '../service/UsuarioService';
 import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {

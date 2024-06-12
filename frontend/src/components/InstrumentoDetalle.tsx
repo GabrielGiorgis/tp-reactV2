@@ -4,7 +4,7 @@ import { Instrumento } from "../types/Instrumento";
 import { getOneInstrumento, deleteInstrumento } from "../api/useInstrumentos";
 import "../components/StyleSheets/StyleInstrumentoDetalle.css";
 import ModalInstrumento from "./modals/ModalInstrumento";
-import { UsuarioService } from "./service/UsuarioService";
+import { UsuarioService } from "../service/UsuarioService";
 import Usuario from "./entidades/Usuario";
 
 const DetalleInstrumento = () => {
@@ -25,6 +25,7 @@ const DetalleInstrumento = () => {
         }
         try {
           const data = await getOneInstrumento(parsedId);
+          console.log(data);
           setInstrumento(data);
         } catch (error) {
           console.error("Error al obtener el instrumento:", error);

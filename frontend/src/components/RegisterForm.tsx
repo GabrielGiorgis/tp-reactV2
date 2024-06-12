@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './StyleSheets/Login.css'; // Importa tus estilos aquí
-import { UsuarioService } from './service/UsuarioService';
+import { UsuarioService } from '../service/UsuarioService';
 import { useNavigate } from 'react-router-dom';
 
 const RegisterForm = () => {
@@ -12,7 +12,7 @@ const RegisterForm = () => {
     const usuarioService = new UsuarioService();
     const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e : React.FormEvent) => {
         e.preventDefault();
         if (password !== confirmPassword) {
             alert("Las contraseñas no coinciden");
