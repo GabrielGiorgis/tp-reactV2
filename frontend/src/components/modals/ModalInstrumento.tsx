@@ -3,8 +3,8 @@ import { Instrumento } from "../../types/Instrumento";
 import {
   createInstrumento,
   updateInstrumento,
-} from "../../api/useInstrumentos";
-import { useCategorias } from "../../api/useCategorias";
+} from "../../service/useInstrumentos";
+import { useCategorias } from "../../service/useCategorias";
 import "./StyleModal.css";
 
 interface ModalProps {

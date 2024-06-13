@@ -1,7 +1,7 @@
 import Chart from "react-google-charts";
-import { useChartBar, useChartPie } from "../api/useCharts";
+import { useChartBar, useChartPie } from "../service/useCharts";
 import { useEffect, useState } from "react";
-import Usuario from "./entidades/Usuario";
+import Usuario from "../types/Usuario";
 import { UsuarioService } from "../service/UsuarioService";
 
 const GoogleCharts = () => {

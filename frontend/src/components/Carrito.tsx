@@ -1,10 +1,10 @@
-import { createPedido } from "../api/usePedido";
+import { createPedido } from "../service/usePedido";
 import { useCarrito } from "../hooks/useCarrito";
 import { Instrumento } from "../types/Instrumento";
 import { Pedido } from "../types/Pedido";
 import { DetallePedido } from "../types/DetallePedido";
 import "./StyleSheets/StyleCart.css";
-import { createDetalle } from "../api/useDetallePedido";
+import { createDetalle } from "../service/useDetallePedido";
 import { CheckoutMP } from "./CheckoutMP";
 import React, { useState } from "react";
 

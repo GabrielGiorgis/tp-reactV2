@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Instrumento } from "../types/Instrumento";
-import { getOneInstrumento, deleteInstrumento } from "../api/useInstrumentos";
+import { getOneInstrumento, deleteInstrumento } from "../service/useInstrumentos";
 import "../components/StyleSheets/StyleInstrumentoDetalle.css";
 import ModalInstrumento from "./modals/ModalInstrumento";
 import { UsuarioService } from "../service/UsuarioService";
-import Usuario from "./entidades/Usuario";
+import Usuario from "../types/Usuario";
 
 const DetalleInstrumento = () => {
   const { id } = useParams();

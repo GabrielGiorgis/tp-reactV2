@@ -1,4 +1,4 @@
-import Usuario from "../components/entidades/Usuario";
+import Usuario from "../types/Usuario";
 
 export class UsuarioService {
     usuario: null;
@@ -15,10 +15,6 @@ export class UsuarioService {
             return null;
         }
     }
-
-    // logout() {
-    //     this.usuario = null;
-    // }
 
     async register(nombreUsuario: string, contrasenia: string, rol: string) {
         try {

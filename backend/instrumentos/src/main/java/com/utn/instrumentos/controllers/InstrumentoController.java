@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -24,6 +25,16 @@ public class InstrumentoController {
 
     @Autowired
     private InstrumentoPdfManager instrumentoPdfManager;
+
+    @PostMapping("/load-json")
+    public ResponseEntity<List<Instrumento>> loadInstrumentosFromJson() {
+        try {
+            List<Instrumento> instrumentos = instrumentoService.loadInstrumentosFromJson();
+            return new ResponseEntity<>(instrumentos, HttpStatus.CREATED);
+        } catch (IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     @GetMapping
     public List<Instrumento> getAllInstrumentos() {

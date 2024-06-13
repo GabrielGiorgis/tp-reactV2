@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
-import { createPreferenceMP } from "../api/useMp";
+import { createPreferenceMP } from "../service/useMp";
 import PreferenceMP from "../types/PreferenceMP";
 import "./StyleSheets/StyleCheckout.css"
 initMercadoPago('');

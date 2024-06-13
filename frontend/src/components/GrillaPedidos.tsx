@@ -1,5 +1,5 @@
 import Header from "./Header";
-import { useDetallePedido } from "../api/useDetallePedido";
+import { useDetallePedido } from "../service/useDetallePedido";
 import { DetallePedido } from "../types/DetallePedido";
 import { useState } from "react";
 

@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { useInstrumentos } from "../api/useInstrumentos";
+import { useInstrumentos } from "../service/useInstrumentos";
 import { Landing } from "../components/Landing";
 import Header from "../components/Header";
 import { Suspense, lazy } from "react";
@@ -10,6 +10,7 @@ import RegisterForm from "../components/RegisterForm";
 import { Logout } from "../components/Logout";
 import GoogleCharts from "../components/GoogleCharts";
 import GrillaPedidos from "../components/GrillaPedidos";
+import LoadJson from "../components/LoadJson";
 
 export const AppRouter = () => {
   const ListaInstrumentos = lazy(
@@ -79,6 +80,14 @@ export const AppRouter = () => {
                 <Header />
                 <Landing />
               </>
+            }
+          />
+          <Route
+            path="/load-json"
+            element={
+              <RutaPrivada>
+                <LoadJson />
+              </RutaPrivada>
             }
           />
         </Routes>

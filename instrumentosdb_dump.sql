@@ -138,7 +138,7 @@ DROP TABLE IF EXISTS `usuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuario` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `contrasenia` varchar(255) DEFAULT NULL,
   `nombre_usuario` varchar(255) DEFAULT NULL,
   `rol` tinyint(4) DEFAULT NULL,
@@ -154,28 +154,6 @@ LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `usuario_seq`
---
-
-DROP TABLE IF EXISTS `usuario_seq`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `usuario_seq` (
-  `next_val` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `usuario_seq`
---
-
-LOCK TABLES `usuario_seq` WRITE;
-/*!40000 ALTER TABLE `usuario_seq` DISABLE KEYS */;
-INSERT INTO `usuario_seq` VALUES (1);
-/*!40000 ALTER TABLE `usuario_seq` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -186,4 +164,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-06 11:25:45
+-- Dump completed on 2024-06-12 13:35:51

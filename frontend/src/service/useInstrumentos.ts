@@ -28,9 +28,7 @@ export const useInstrumentos = () => {
 
 export const getOneInstrumento = async (id: number) => {
   try {
-    const response = await fetch(
-      url + `/api/instrumentos/${id}`
-    );
+    const response = await fetch(url + `/api/instrumentos/${id}`);
     console.log(response);
     if (!response.ok) {
       throw new Error("Error al obtener el instrumento");
@@ -85,12 +83,9 @@ export const updateInstrumento = async (instrumento: Instrumento) => {
 
 export const deleteInstrumento = async (id: number) => {
   try {
-    const response = await fetch(
-      url + `/api/instrumentos/${id}`,
-      {
-        method: "DELETE",
-      }
-    );
+    const response = await fetch(url + `/api/instrumentos/${id}`, {
+      method: "DELETE",
+    });
     if (!response.ok) {
       throw new Error("Error al eliminar el instrumento");
     }
@@ -98,5 +93,22 @@ export const deleteInstrumento = async (id: number) => {
   } catch (error) {
     console.error(error);
     return false;
+  }
+};
+
+// Cargar datos del JSON
+export const loadInstrumentosFromJson = async () => {
+  try {
+    const response = await fetch(url + "/api/instrumentos/load-json", {
+      method: "POST",
+    });
+    if (!response.ok) {
+      throw new Error("Error al cargar los datos del JSON");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error al cargar los datos del JSON:", error);
+    throw error;
   }
 };

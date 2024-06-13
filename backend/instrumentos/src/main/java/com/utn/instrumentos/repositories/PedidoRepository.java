@@ -15,7 +15,7 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
             "ORDER BY mes_anio", nativeQuery = true)
     List<Object[]> getCountPedidosPorMesYAnio();
 
-    @Query(value = "SELECT i.instrumento, COUNT(*) AS cantidad_pedidos " +
+    @Query(value = "SELECT i.instrumento, SUM(pd.cantidad) AS cantidad_pedidos " +
             "FROM pedido p " +
             "JOIN pedido_detalle pd ON p.id_pedido = pd.pedido " +
             "JOIN instrumento i ON pd.instrumento = i.idinstrumento " +

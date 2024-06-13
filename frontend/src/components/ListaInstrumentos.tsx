@@ -5,8 +5,7 @@ import ModalInstrumento from "./modals/ModalInstrumento";
 import { CarritoContextProvider } from "./context/CarritoContext";
 import { Carrito } from "./Carrito";
 import { UsuarioService } from "../service/UsuarioService";
-import Usuario from "./entidades/Usuario";
-import { useNavigate } from "react-router-dom";
+import Usuario from "../types/Usuario";
 
 const ListaInstrumentos: React.FC<{ instrumentos: Instrumento[] }> = ({
   instrumentos,

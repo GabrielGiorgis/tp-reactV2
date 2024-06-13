@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -74,7 +75,8 @@ public class PedidoController {
 
         for (Object[] resultado : resultados) {
             String instrumento = (String) resultado[0];
-            Long cantidadPedidos = (Long) resultado[1];
+            BigDecimal cantidadPedidosBD = (BigDecimal) resultado[1]; // Get the value as BigDecimal
+            Long cantidadPedidos = cantidadPedidosBD.longValue(); // Convert to Long
             data.add(Arrays.asList(instrumento, cantidadPedidos));
         }
 
