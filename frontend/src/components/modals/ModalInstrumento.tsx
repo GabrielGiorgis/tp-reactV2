@@ -34,6 +34,7 @@ const ModalInstrumento: React.FC<ModalProps> = ({
       descripcion: "",
       categoria: categorias[0] || { id: 0, denominacion: "" },
       cantidadEnCarrito: 0,
+      eliminado: false
     }
   );
 

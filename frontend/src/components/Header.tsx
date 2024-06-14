@@ -31,7 +31,7 @@ export default function Header() {
       >
         <Container style={{ display: "flex", justifyContent: "space-between" }}>
           <div style={{ display: "flex" }}>
-            <Navbar.Brand href="#home">Musical Hendrix</Navbar.Brand>
+            <Navbar.Brand>Musical Hendrix</Navbar.Brand>
             <Nav className="me-auto">
               <Nav.Link href="/">Inicio</Nav.Link>
               <Nav.Link href="/ubicacion">Donde Estamos</Nav.Link>

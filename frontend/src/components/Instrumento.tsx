@@ -13,13 +13,34 @@ const InstrumentoComponent: React.FC<InstrumentoProps> = ({ instrumento }) => {
   const { addCarrito, removeCarrito, cart, removeItemCarrito } = useCarrito();
 
   const verificarInstrumentoEnCarrito = (product: Instrumento) => {
-    return cart.some(item => item.idinstrumento === product.idinstrumento);
-  }
+    return cart.some((item) => item.idinstrumento === product.idinstrumento);
+  };
 
   const isPlatoEnCarrito = verificarInstrumentoEnCarrito(instrumento);
   return (
     <Container>
-      <Row style={{ marginTop: "30px", marginBottom: "30px" }}>
+      <Row
+        style={{
+          marginTop: "30px",
+          marginBottom: "30px",
+          opacity: instrumento.eliminado ? 0.5 : 1,
+          pointerEvents: instrumento.eliminado ? "none" : "auto",
+          position: "relative",
+        }}
+      >
+        {instrumento.eliminado && (
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: "rgba(128, 128, 128, 0.5)",
+              zIndex: 1,
+            }}
+          ></div>
+        )}
         <Col>
           <img
             src={`http://localhost:8080/images/${instrumento.imagen}`}
@@ -30,10 +51,10 @@ const InstrumentoComponent: React.FC<InstrumentoProps> = ({ instrumento }) => {
           <h6>{instrumento.instrumento}</h6>
           <h3>${instrumento.precio}</h3>
           {instrumento.costoenvio === "0.00" ||
-            instrumento.costoenvio === "G" ? (
+          instrumento.costoenvio === "G" ? (
             <p style={{ color: "#3FBF48" }}>
-              <img src="http://localhost:8080/images/camion.png" alt="Camión" /> Envío gratis a
-              todo el país
+              <img src="http://localhost:8080/images/camion.png" alt="Camión" />{" "}
+              Envío gratis a todo el país
             </p>
           ) : (
             <p style={{ color: "#F2620F" }}>
@@ -50,22 +71,56 @@ const InstrumentoComponent: React.FC<InstrumentoProps> = ({ instrumento }) => {
               color: "#007bff",
               border: "1px solid #007bff",
               borderRadius: "4px",
-              cursor: "pointer",
+              cursor: instrumento.eliminado ? "not-allowed" : "pointer",
             }}
+            disabled={instrumento.eliminado}
           >
             Ver más
           </button>
         </Col>
       </Row>
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <button className="iconoMasMenos" onClick={() => removeItemCarrito(instrumento)}>-</button>
-        <Button style={{ border: "none", backgroundColor: "transparent", padding: "0", boxShadow: "none" }}
-          onClick={() => (isPlatoEnCarrito ? removeCarrito(instrumento) : addCarrito(instrumento))}>
-          {
-            isPlatoEnCarrito ? <Button>Eliminar de Carrito</Button> : <Button>Agregar al carrito</Button>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          opacity: instrumento.eliminado ? 0.5 : 1,
+          pointerEvents: instrumento.eliminado ? "none" : "auto",
+        }}
+      >
+        <button
+          className="iconoMasMenos"
+          onClick={() => removeItemCarrito(instrumento)}
+          disabled={instrumento.eliminado}
+        >
+          -
+        </button>
+        <Button
+          style={{
+            border: "none",
+            backgroundColor: "transparent",
+            padding: "0",
+            boxShadow: "none",
+          }}
+          onClick={() =>
+            isPlatoEnCarrito
+              ? removeCarrito(instrumento)
+              : addCarrito(instrumento)
           }
+          disabled={instrumento.eliminado}
+        >
+          {isPlatoEnCarrito ? (
+            <Button>Eliminar de Carrito</Button>
+          ) : (
+            <Button>Agregar al carrito</Button>
+          )}
         </Button>
-        <button className="iconoMasMenos" onClick={() => addCarrito(instrumento)}>+</button>
+        <button
+          className="iconoMasMenos"
+          onClick={() => addCarrito(instrumento)}
+          disabled={instrumento.eliminado}
+        >
+          +
+        </button>
       </div>
     </Container>
   );

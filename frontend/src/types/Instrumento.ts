@@ -12,4 +12,5 @@ export interface Instrumento {
     descripcion: string;
     categoria: Categoria;
     cantidadEnCarrito: number;
+    eliminado: boolean;
 }

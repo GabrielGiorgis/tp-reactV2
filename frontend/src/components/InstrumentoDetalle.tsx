@@ -132,10 +132,6 @@ const DetalleInstrumento = () => {
           <p className="instrumento-descripcion">{instrumento.descripcion}</p>
         </div>
         <div className="instrumento-acciones">
-          <button className="instrumento-boton-agregar">
-            Agregar al carrito
-          </button>
-          <button className="instrumento-boton-comprar">Comprar ahora</button>
           {usuario &&
             (usuario.rol === "ADMINISTRADOR" || usuario.rol === "OPERADOR") && (
               <>
