@@ -25,6 +25,7 @@ public class Instrumento {
     private Integer cantidadvendida;
     private String descripcion;
     private int cantidadEnPedido;
+    private boolean eliminado;
 
     @ManyToOne
     @JoinColumn(name = "idcategoria")

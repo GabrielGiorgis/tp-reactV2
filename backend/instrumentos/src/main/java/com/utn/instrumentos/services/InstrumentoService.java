@@ -5,6 +5,7 @@ import com.utn.instrumentos.dto.InstrumentosJson;
 import com.utn.instrumentos.entities.Categoria;
 import com.utn.instrumentos.entities.Instrumento;
 import com.utn.instrumentos.repositories.InstrumentoRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -42,8 +43,12 @@ public class InstrumentoService {
         return instrumentoRepository.save(instrumento);
     }
 
-    public void deleteInstrumento(Long id) {
-        instrumentoRepository.deleteById(id);
+    public void deleteInstrumento(Long id) { // BAJA LÓGICA
+        Instrumento instrumento = instrumentoRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Instrumento no encontrado con id: " + id));
+
+        instrumento.setEliminado(true);
+        instrumentoRepository.save(instrumento);
     }
 
     public List<Instrumento> loadInstrumentosFromJson() throws IOException {
